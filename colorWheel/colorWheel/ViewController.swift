@@ -13,6 +13,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var slider: UISlider!
+    
+    
+    var context: CIContext!
+    var filter: CIFilter!
+    var coreImage: CIImage!
+    var coreOrientation: UIImageOrientation!
+    var coreScale: CGFloat!
+    
    
     override func viewDidLoad() {
         
@@ -24,47 +33,81 @@ class ViewController: UIViewController {
             print("imageView doesn't have an image!")
             return
         }
+    
+       coreOrientation = orientation
+       coreScale = image.scale
         
         let openGLContext = EAGLContext(api: .openGLES2)
-        let context = CIContext(eaglContext: openGLContext!)
+        context = CIContext(eaglContext: openGLContext!)
         
-        let coreImage = CIImage(cgImage: cgimg)
+        coreImage = CIImage(cgImage: cgimg)
         
-//        let filter = CIFilter(name: "CISepiaTone")
-//        filter?.setValue(coreImage, forKey: kCIInputImageKey)
-//        filter?.setValue(0.5, forKey: kCIInputIntensityKey)
+        filter = CIFilter(name: "CISepiaTone")
+        filter?.setValue(coreImage, forKey: kCIInputImageKey)
+        filter?.setValue(0.5, forKey: kCIInputIntensityKey)
         
-        let sepiaFilter = CIFilter(name: "CISepiaTone")
-        sepiaFilter?.setValue(coreImage, forKey: kCIInputImageKey)
-        sepiaFilter?.setValue(1, forKey: kCIInputIntensityKey)
+        if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
+
+            let cgimgresult = context.createCGImage(output, from: output.extent)
+            let result = UIImage(cgImage: cgimgresult!, scale: image.scale, orientation: orientation)
+            imageView?.image = result
         
-        if let sepiaOutput = sepiaFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
-            let exposureFilter = CIFilter(name: "CIExposureAdjust")
-            exposureFilter?.setValue(sepiaOutput, forKey: kCIInputImageKey)
-            exposureFilter?.setValue(1, forKey: kCIInputEVKey)
-            
-            if let exposureOutput = exposureFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
-                let output = context.createCGImage(exposureOutput, from: exposureOutput.extent)
-                let result = UIImage(cgImage: output!, scale: image.scale, orientation: orientation)
-                imageView?.image = result
-            }
+
         }
-        
-//        if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
-//
-//            let cgimgresult = context.createCGImage(output, from: output.extent)
-//            let result = UIImage(cgImage: cgimgresult!, scale: image.scale, orientation: orientation)
-//            imageView?.image = result
-//        
-////            
-////            
-////            let filteredImage = UIImage(ciImage: output, scale: image.scale, orientation: orientation)
-////
-//////            imageView?.image = filteredImage
-//        }
         
         else {
             print("image filtering failed")
         }
     }
+    
+    
+
+    
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        
+        let sliderValue = sender.value
+        
+        filter.setValue(sliderValue, forKey: kCIInputIntensityKey)
+        let outputImage = filter.outputImage
+        
+        let cgimg = context.createCGImage(outputImage!, from: outputImage!.extent)
+        
+        print("ORIENTATION")
+        print(coreOrientation)
+        print("SCALE")
+        print(coreScale)
+        print("CGIMG")
+        print(cgimg!)
+        
+        let newImage = UIImage(cgImage: cgimg!, scale: coreScale, orientation: coreOrientation)
+        self.imageView.image = newImage
+        
+    }
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+//        let sepiaFilter = CIFilter(name: "CISepiaTone")
+//        sepiaFilter?.setValue(coreImage, forKey: kCIInputImageKey)
+//        sepiaFilter?.setValue(1, forKey: kCIInputIntensityKey)
+//
+//        if let sepiaOutput = sepiaFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
+//            let exposureFilter = CIFilter(name: "CIExposureAdjust")
+//            exposureFilter?.setValue(sepiaOutput, forKey: kCIInputImageKey)
+//            exposureFilter?.setValue(1, forKey: kCIInputEVKey)
+//
+//            if let exposureOutput = exposureFilter?.value(forKey: kCIOutputImageKey) as? CIImage {
+//                let output = context.createCGImage(exposureOutput, from: exposureOutput.extent)
+//                let result = UIImage(cgImage: output!, scale: image.scale, orientation: orientation)
+//                imageView?.image = result
+//            }
+//        }
+//
+
