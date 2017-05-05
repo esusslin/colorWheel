@@ -102,7 +102,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         // Save the image into camera roll
         UIImageWriteToSavedPhotosAlbum(imageToFilter.image!, nil, nil, nil)
         
-        let alert = UIAlertView(title: "Filters",
+        let alert = UIAlertView(title: "Filter'd",
                                 message: "Your image has been saved to Photo Library",
                                 delegate: nil,
                                 cancelButtonTitle: "OK")
