@@ -49,7 +49,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         let gapBetweenButtons: CGFloat = 5
 
         
-        let myfilters = ["CICrystallize","CICMYKHalftone","CIColorPosterize","CIColorMonochrome","CIPhotoEffectChrome","CIPhotoEffectFade", "CIPhotoEffectInstant","CIPhotoEffectNoir","CIPhotoEffectProcess","CIPhotoEffectTonal","CIPhotoEffectTransfer","CISepiaTone"]
+//        let myfilters = ["CICrystallize","CICMYKHalftone","CIColorPosterize","CIColorMonochrome","CIPhotoEffectChrome","CIPhotoEffectFade", "CIPhotoEffectInstant","CIPhotoEffectNoir","CIPhotoEffectProcess","CIPhotoEffectTonal","CIPhotoEffectTransfer","CISepiaTone"]
+        
+              let myfilters = ["CIColorPosterize"]
         
         var itemCount = 0
         
@@ -92,7 +94,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     func filterButtonTapped(sender: UIButton) {
         let button = sender as UIButton
         
+        
+        
         imageToFilter.image = button.backgroundImage(for: UIControlState.normal)
+        
+        print(imageToFilter.image)
     }
     
     
@@ -110,6 +116,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
     }
     
+    
+    @IBAction func brightness_changed(_ sender: Any) {
+        
+        applyProcessing()
+    }
+    
+    func applyProcessing() {
+        
+    }
+    
+    
+    
     @IBAction func photoAlbumBtn_pressed(_ sender: Any) {
         
         imagePicker.allowsEditing = false
@@ -119,21 +137,25 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             
-                        print(pickedImage)
-                        originalImage.contentMode = .scaleAspectFit
-                        originalImage.image = pickedImage
-                    }
+            
+            originalImage.image = image
+            originalImage.contentMode = .scaleAspectFit
+        }
+        else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            originalImage.image = image
+            originalImage.contentMode = .scaleAspectFit
+        } else{
+            print("Something went wrong")
+        }
         
+        loadFilts()
         
+        self.dismiss(animated: true, completion: nil)
         
-        
-                    dismiss(animated: true, completion: nil)
-        
-                    loadFilts()
-        
-
     }
 
     

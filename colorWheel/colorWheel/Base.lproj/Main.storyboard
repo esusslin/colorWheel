@@ -35,6 +35,9 @@
                             <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="lJm-bu-kMf">
                                 <rect key="frame" x="14" y="521" width="347" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="brightness_changed:" destination="BYZ-38-t0r" eventType="valueChanged" id="X2H-LT-qoK"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="R2f-h2-uf2">
                                 <rect key="frame" x="259" y="617" width="100" height="30"/>
