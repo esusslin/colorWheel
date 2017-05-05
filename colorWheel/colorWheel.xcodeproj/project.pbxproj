@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E29041631EB3D5350034E137 /* threshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29041621EB3D5350034E137 /* threshVC.swift */; };
 		E29B97861E9DD3D400F28ABB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B97851E9DD3D400F28ABB /* AppDelegate.swift */; };
 		E29B97881E9DD3D400F28ABB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B97871E9DD3D400F28ABB /* ViewController.swift */; };
 		E29B978B1E9DD3D400F28ABB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E29B97891E9DD3D400F28ABB /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E29041621EB3D5350034E137 /* threshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = threshVC.swift; sourceTree = "<group>"; };
 		E29B97821E9DD3D400F28ABB /* colorWheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = colorWheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29B97851E9DD3D400F28ABB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E29B97871E9DD3D400F28ABB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				E29B97851E9DD3D400F28ABB /* AppDelegate.swift */,
 				E29B97871E9DD3D400F28ABB /* ViewController.swift */,
+				E29041621EB3D5350034E137 /* threshVC.swift */,
 				E29B97891E9DD3D400F28ABB /* Main.storyboard */,
 				E29B978F1E9DD3D400F28ABB /* Assets.xcassets */,
 				E29B97911E9DD3D400F28ABB /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E29041631EB3D5350034E137 /* threshVC.swift in Sources */,
 				E29B97881E9DD3D400F28ABB /* ViewController.swift in Sources */,
 				E29B97861E9DD3D400F28ABB /* AppDelegate.swift in Sources */,
 				E29B978E1E9DD3D400F28ABB /* colorWheel.xcdatamodeld in Sources */,
@@ -518,6 +522,7 @@
 				E29B97AF1E9DD3D400F28ABB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E29B97B01E9DD3D400F28ABB /* Build configuration list for PBXNativeTarget "colorWheelTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				E29B97B21E9DD3D400F28ABB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E29B97B31E9DD3D400F28ABB /* Build configuration list for PBXNativeTarget "colorWheelUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				E29B97B51E9DD3D400F28ABB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

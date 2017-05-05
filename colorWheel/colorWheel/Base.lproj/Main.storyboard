@@ -40,17 +40,31 @@
                                 <rect key="frame" x="259" y="617" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Photo Album"/>
+                                <connections>
+                                    <action selector="photoAlbumBtn_pressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dvv-CD-ezf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VmY-kh-DnR">
                                 <rect key="frame" x="13" y="617" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save Photo"/>
+                                <connections>
+                                    <action selector="savePhotoBtn_pressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L6h-l0-aXJ"/>
+                                </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="h8b-0v-MBD">
                                 <rect key="frame" x="0.0" y="71" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E61-jp-Ju6">
+                                <rect key="frame" x="16" y="20" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="segueToThresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PZ7-TR-9QM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -62,11 +76,54 @@
                         <outlet property="savePhotoBtn" destination="VmY-kh-DnR" id="BrJ-n1-13A"/>
                         <outlet property="scrollView" destination="h8b-0v-MBD" id="c8F-WE-LRf"/>
                         <outlet property="slider" destination="lJm-bu-kMf" id="GWL-Hw-lkP"/>
+                        <segue destination="DWG-Qg-sJP" kind="modal" identifier="toThresh" id="U1j-cM-VKj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="73.5" y="137.5"/>
+        </scene>
+        <!--ThreshVC-->
+        <scene sceneID="vWB-hQ-pgd">
+            <objects>
+                <viewController id="DWG-Qg-sJP" customClass="threshVC" customModule="colorWheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gAY-v9-2Bu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="xaG-78-Rzi">
+                                <rect key="frame" x="67" y="269" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CnD-pY-etE"/>
+                    <connections>
+                        <outlet property="image" destination="xaG-78-Rzi" id="4dA-lh-Kin"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tdS-zV-AOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="138"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3TL-5V-XfF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STB-TC-2qL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rqz-fE-jP7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DWG-Qg-sJP" kind="relationship" relationship="rootViewController" id="eKd-yB-e3W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="idw-z5-bli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="554" y="-725"/>
         </scene>
     </scenes>
     <resources>
@@ -77,4 +134,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="U1j-cM-VKj"/>
+    </inferredMetricsTieBreakers>
 </document>

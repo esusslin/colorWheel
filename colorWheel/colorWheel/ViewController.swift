@@ -25,25 +25,31 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var photoAlbumBtn: UIButton!
     @IBOutlet weak var savePhotoBtn: UIButton!
 
+     let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
 
+        imagePicker.delegate = self
         
         containerView.center = view.center
         originalImage.center = containerView.center
         imageToFilter.center = containerView.center
         scrollView.center.x = view.center.x
         
+        loadFilts()
+      
+    }
+    
+    func loadFilts() {
         
+        var xCoord: CGFloat = 5
+        let yCoord: CGFloat = 5
+        let buttonWidth:CGFloat = 70
+        let buttonHeight: CGFloat = 70
+        let gapBetweenButtons: CGFloat = 5
+
         
-                var xCoord: CGFloat = 5
-                let yCoord: CGFloat = 5
-                let buttonWidth:CGFloat = 70
-                let buttonHeight: CGFloat = 70
-                let gapBetweenButtons: CGFloat = 5
-        
-        let myfilters = ["CIColorPosterize","CIColorMonochrome","CIPhotoEffectChrome","CIPhotoEffectFade", "CIPhotoEffectInstant","CIPhotoEffectNoir","CIPhotoEffectProcess","CIPhotoEffectTonal","CIPhotoEffectTransfer","CISepiaTone"]
-            
+        let myfilters = ["CICrystallize","CICMYKHalftone","CIColorPosterize","CIColorMonochrome","CIPhotoEffectChrome","CIPhotoEffectFade", "CIPhotoEffectInstant","CIPhotoEffectNoir","CIPhotoEffectProcess","CIPhotoEffectTonal","CIPhotoEffectTransfer","CISepiaTone"]
         
         var itemCount = 0
         
@@ -58,21 +64,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
             filterButton.layer.cornerRadius = 6
             filterButton.clipsToBounds = true
-        
+            
             let ciContext = CIContext(options: nil)
             let coreImage = CIImage(image: originalImage.image!)
             let filter = CIFilter(name: each)
             filter!.setDefaults()
             filter!.setValue(coreImage, forKey: kCIInputImageKey)
-
+            
             let filteredImageData = filter!.value(forKey: kCIOutputImageKey) as! CIImage
             let filteredImageRef = ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
-
+            
             let imageForButton = UIImage(cgImage: filteredImageRef!, scale: 1.0, orientation: .down)
             
             // Assign filtered image to the button
             filterButton.setBackgroundImage(imageForButton, for: .normal)
-        
+            
             // Add Buttons in the Scroll View
             xCoord +=  buttonWidth + gapBetweenButtons
             scrollView.addSubview(filterButton)
@@ -80,13 +86,74 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         // Resize Scroll View
         scrollView.contentSize = CGSize(width: (buttonWidth * CGFloat(myfilters.count+2)), height: yCoord)
 
+        
     }
     
     func filterButtonTapped(sender: UIButton) {
         let button = sender as UIButton
-        print("BONER!")
+        
         imageToFilter.image = button.backgroundImage(for: UIControlState.normal)
     }
+    
+    
+    // SAVE FILTERED PIC TO LIBRARY
+    
+    @IBAction func savePhotoBtn_pressed(_ sender: Any) {
+        // Save the image into camera roll
+        UIImageWriteToSavedPhotosAlbum(imageToFilter.image!, nil, nil, nil)
+        
+        let alert = UIAlertView(title: "Filters",
+                                message: "Your image has been saved to Photo Library",
+                                delegate: nil,
+                                cancelButtonTitle: "OK")
+        alert.show()
+        
+    }
+    
+    @IBAction func photoAlbumBtn_pressed(_ sender: Any) {
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+                        print(pickedImage)
+                        originalImage.contentMode = .scaleAspectFit
+                        originalImage.image = pickedImage
+                    }
+        
+        
+        
+        
+                    dismiss(animated: true, completion: nil)
+        
+                    loadFilts()
+        
+
+    }
+
+    
+    
+    /// SEGUE TO NEXT VIEW
+    
+    @IBAction func segueToThresh(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "toThresh", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("hello?")
+        if segue.identifier == "toThresh" {
+            let dvc = segue.destination as! threshVC
+            dvc.newImage = imageToFilter.image!
+        }
+
+    }
+    
 
 }
 
